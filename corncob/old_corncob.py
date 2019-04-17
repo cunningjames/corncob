@@ -34,20 +34,14 @@ def group_by(*args):
 
 
 
-
-
-foo = pd.read_csv("/Users/j260381/Projects/training-datarobot-api/docs/data/ames.csv")
-
 class intrant(object):
     """intrant -- temporary mixins
-
     This class is intended to be applied to an object in order to make available
     a temporary set of methods. This should not be used to create objects that
     live beyond a chain of method calls; the author cannot vouch for its
     stability in that use case. Each method call within the specified set will
     return an object of type `intrant`, however, so a chain can be maintained as
     long as necessary.
-
     Calling a method not within the chain, or explicity calling `exeunt`, will
     end the chain and return an object of the expected type.
     """
@@ -57,7 +51,6 @@ class intrant(object):
         those I have to do so within `__new__`. The list of methods to avoid
         copying includes methods that can't be, as well as `__setattr__` (since
         Pandas DataFrame objects will throw a warning if I try).
-
         Args:
             item: an object to be wrapped
             registry: a dictionary mapping method names to functions
@@ -78,7 +71,6 @@ class intrant(object):
 
     def __init__(self, item, registry):
         """Initialize the `intrant` object.
-
         Args:
             item: an object to be wrapped
             registry: a dictionary mapping method names to functions
@@ -91,11 +83,9 @@ class intrant(object):
         """Handles dispatching any attribute access that isn't a magic method,
         routing anything that is not in the registry or directly within the
         `intrant` class to the underlying object.
-
         Todo: explore the possibility of namespacing the registry, perhaps
         having separate dictionaries for different types of objects to better
         support chains that can switch type back and forth.
-
         Args:
             fn: a string representing the attribute to be accessed
         Returns:
@@ -117,7 +107,6 @@ class intrant(object):
 
     def exeunt(self):
         """Returns the original wrapped object.
-
         Returns:
             the original wrapped object
         """
@@ -229,14 +218,14 @@ class DFHandler(object):
 
 
 
-(M(ames).
- select("Sale_Price", "Bedrooms").
- mutate(Sale_Price = col("Sale_Price").log()).
- group_by("Bedrooms").
- summarize(col("Sale_Price").mean()))
+# (M(ames).
+#  select("Sale_Price", "Bedrooms").
+#  mutate(Sale_Price = col("Sale_Price").log()).
+#  group_by("Bedrooms").
+#  summarize(col("Sale_Price").mean()))
 
-M(ames,
-  select("Sale_Price", "Bedrooms"),
-  mutate(Sale_Price = col("Sale_Price").log()),
-  group_by("Bedrooms"),
-  summarize(col("Sale_Price").mean()))
+# M(ames,
+#   select("Sale_Price", "Bedrooms"),
+#   mutate(Sale_Price = col("Sale_Price").log()),
+#   group_by("Bedrooms"),
+#   summarize(col("Sale_Price").mean()))
